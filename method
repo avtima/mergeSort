@@ -1,0 +1,57 @@
+public class MergeSort {
+    public static void main(String[] args) {
+
+        int[] arr = new int[] {38, 27, 43, 3, 9, 82, 10};
+        System.out.println(Arrays.toString(arr));
+        mergeSort(arr, arr.length);
+        System.out.println(Arrays.toString(arr));
+    }
+
+    private static void mergeSort(int[] array, int length) {
+        if (length < 2) {
+            return;
+        }
+        int mid = length / 2;
+        int[] left = new int[mid];
+        int[] right = new int[length - mid];
+        for (int i = 0; i < mid; i++) {
+            left[i] = array[i];
+        }
+        for (int i = mid; i < length; i++) {
+            right[i - mid] = array[i];
+        }
+        mergeSort(left, mid);
+        mergeSort(right, length - mid);
+        mergeArray(left, right, array);
+    }
+
+    private static void mergeArray (int [] a, int [] b, int [] array){
+
+        int indexA = 0;
+        int indexB = 0;
+
+        for (int i = 0; i < array.length; i++){
+            if (indexA < a.length && indexB < b.length){
+                int elementA = a[indexA];
+                int elementB = b[indexB];
+                if (elementA < elementB){
+                    array[i] = elementA;
+                    indexA++;
+                }
+                else {
+                    array[i] = elementB;
+                    indexB++;
+                }
+                continue;
+            }
+            if (indexA < a.length){
+                array[i] = a[indexA];
+                indexA++;
+            }
+            if (indexA >= a.length){
+                array[i] = b[indexB];
+                indexB++;
+            }
+        }
+    }
+}
